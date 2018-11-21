@@ -1,4 +1,5 @@
 # Disclaimer
-File `RuneWordList.txt` was copy-pasted from [this other repo](https://github.com/BigCircles/Diablo2-RuneWordDB/blob/master/src/RunewordList.txt).
+File `RuneWordList.txt` was copy-pasted from [this other repo](https://github.com/BigCircles/Diablo2-RuneWordDB/blob/master/src/RunewordList.txt)
+and cleaned up a bit.
 
-This repo uses a script to parse the file and convert it into a JSON format.
+`npm run create-json` reads `RuneWordList.txt` and generates `RuneWordList.json` for UI usage.
