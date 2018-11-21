@@ -46,11 +46,10 @@ function onNextLine(line) {
     switch (lineCount) {
         case 0: // Name
             currRuneword = { name: line };
-            console.log(`name: ${line}`);
             break;
 
         case 1: // Socket count & item type
-            processSocketsAndItemType(currRuneword, line);
+            processItemType(currRuneword, line);
             break;
 
         case 2: // Runes
@@ -64,16 +63,22 @@ function onNextLine(line) {
     }
 }
 
-function processSocketsAndItemType(currRuneword, line) {
-    // TODO
+function processItemType(currRuneword, line) {
+    var index = line.indexOf(' ', 2); // skipt first white space
+    var items = line.substr(index+1);
+    currRuneword.items = items.split('/');
 }
 
 function processRunes(currRuneword, line) {
-    // TODO
+    currRuneword.runes = line.split(' + ');
 }
 
 function processEffects(currRuneword, line) {
-    // TODO
+    var effects = line.split('|').map( effect => { return effect.trim() } );
+    while (effects[effects.length-1].length === 0) {
+        effects.pop();
+    }
+    currRuneword.effects = effects;
 }
 
 function addRuneword(runeword) {
