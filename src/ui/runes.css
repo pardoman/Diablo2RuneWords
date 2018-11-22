@@ -7,3 +7,7 @@
     border-radius: 22px 22px 2px 3px;
     cursor: pointer;
 }
+
+.clickable:hover {
+    background-color: #d87272;
+}
