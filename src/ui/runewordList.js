@@ -8,7 +8,7 @@ import './runewordList.css'
 
 let _runewordsDiv;
 let _noRunewordsDiv;
-export function createList(div) {
+export function initRunewords(div) {
     
     _runewordsDiv = document.createElement('div');
     _runewordsDiv.innerHTML = Mustache.render(TEMPLATE, { runewords: RUNEWORDS });
