@@ -34,6 +34,8 @@ module.exports = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin()
+        new HtmlWebpackPlugin({
+            title: 'D2 Runewords'
+        })
     ]
 }
