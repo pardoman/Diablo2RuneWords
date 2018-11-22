@@ -1,0 +1,9 @@
+.rune {
+    color: #0c0b0b;
+    padding: 10px 10px 4px;
+    margin: 6px 2px;
+    display: inline-block;
+    background-color: #dad3d3;
+    border-radius: 22px 22px 2px 3px;
+    cursor: pointer;
+}

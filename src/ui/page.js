@@ -1,10 +1,17 @@
+import { renderRuneList } from './runes'
 import { createList } from './runewordList'
 
 
 export function createPage(div) {
 
-    // Runelist
-    var runeListDiv = document.createElement('div');
-    createList(runeListDiv);
-    div.appendChild(runeListDiv);
+    // Runes available ingame
+    var runestDiv = document.createElement('div');
+    renderRuneList(runestDiv);
+    div.appendChild(runestDiv);
+    
+
+    // Runeword list
+    var runewordListDiv = document.createElement('div');
+    createList(runewordListDiv);
+    div.appendChild(runewordListDiv);
 }
