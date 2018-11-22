@@ -7,7 +7,7 @@ var _filterDiv;
 export function initFilter(div) {
 
     _filterDiv = document.createElement('div');
-    _filterDiv.addEventListener('click', onRuneClick);
+    _filterDiv.addEventListener('click', onClick);
     renderFilter();
     div.appendChild(_filterDiv);
 
@@ -21,12 +21,20 @@ function renderFilter() {
     _filterDiv.className = 'filter';
 }
 
-function onRuneClick() {
-    if (!event.target.classList.contains('rune')) {
-        return;
+function onClick() {
+
+    // Remove Rune
+    if (event.target.classList.contains('rune')) {
+        var runeName = event.target.textContent;
+        let filterData = getFilterData();
+        filterData.removeRune(runeName);
     }
 
-    var runeName = event.target.textContent;
-    let filterData = getFilterData();
-    filterData.removeRune(runeName);
+    // Next filtering strategy
+    if (event.target.classList.contains('next-strategy')) {
+        let filterData = getFilterData();
+        filterData.nextStrategy();
+    }
+
+    
 }

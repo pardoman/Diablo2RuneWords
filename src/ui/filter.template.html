@@ -6,3 +6,12 @@
 {{^runes}}
 <div>Click Runes to filter RuneWords.</div>
 {{/runes}}
+
+{{#hasRunes}}
+<div class="strategy">
+    Strategy
+    <button class="next-strategy">&#8594;</button>
+    <strong>{{strategy}}</strong>
+    <div>{{strategy_hint}}</div>
+</div>
+{{/hasRunes}}
