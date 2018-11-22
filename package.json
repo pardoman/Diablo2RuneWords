@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --config config/dev.config.js",
+    "dev": "webpack-dev-server --config config/dev.config.js",
     "build": "webpack --config config/prod.config.js",
     "create-json": "node scripts/txt-to-json.js"
   },
@@ -26,6 +26,7 @@
   "devDependencies": {
     "webpack": "^4.26.0",
     "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
     "webpack-merge": "^4.1.4"
   }
 }
