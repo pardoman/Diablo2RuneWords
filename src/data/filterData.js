@@ -5,17 +5,29 @@ class FilterData {
     }
 
     addRune(name) {
-        this.runes.push(name);
-        return true;
+        var index = this.runes.indexOf(name);
+        if (index === -1) {
+            this.runes.push(name);
+            onFilterChange(this);
+        }
     }
 
     removeRune(name) {
         var index = this.runes.indexOf(name);
         if (index >= 0) {
             this.runes.splice(index, 1);
-            return true;
+            onFilterChange(this);
         }
-        return false;
+    }
+
+    toggleRune(name) {
+        var index = this.runes.indexOf(name);
+        if (index === -1) {
+            this.runes.push(name);
+        } else {
+            this.runes.splice(index, 1);
+        }
+        onFilterChange(this);
     }
 
     getPlainObject() {
@@ -23,6 +35,7 @@ class FilterData {
             runes: this.runes.concat() // shallow copy
         }
     }
+
 }
 
 let filterData = new FilterData();
@@ -33,3 +46,18 @@ let filterData = new FilterData();
 export function getFilterData() {
     return filterData;
 }
+
+/**
+ * 
+ */
+let _listeners = [];
+export function registerFilterChange(fn) {
+    _listeners.push(fn);
+}
+
+function onFilterChange() {
+    _listeners.forEach( (listener)=>{
+        listener();
+    })
+}
+

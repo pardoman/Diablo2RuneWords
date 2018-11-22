@@ -1,15 +1,21 @@
 import './filter.css'
 import TEMPLATE from './filter.template.html'
-import { getFilterData } from '../data/filterData'
+import { getFilterData, registerFilterChange } from '../data/filterData'
 const Mustache = require('mustache')
 
-export function renderFilter(div) {
+var _filterDiv;
+export function initFilter(div) {
 
+    _filterDiv = document.createElement('div');
+    renderFilter();
+    div.appendChild(_filterDiv);
+
+    registerFilterChange(renderFilter);
+}
+
+function renderFilter() {
     const filterData = getFilterData();
     const plainObject = filterData.getPlainObject();
-
-    var filterDiv = document.createElement('div');
-    filterDiv.innerHTML = Mustache.render(TEMPLATE, plainObject );
-    filterDiv.className = 'filter';
-    div.appendChild(filterDiv);
+    _filterDiv.innerHTML = Mustache.render(TEMPLATE, plainObject);
+    _filterDiv.className = 'filter';
 }
