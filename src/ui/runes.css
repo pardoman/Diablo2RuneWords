@@ -11,3 +11,7 @@
 .clickable:hover {
     background-color: #d87272;
 }
+
+.rune-matches {
+    background-color: #90caa0;
+}

@@ -22,12 +22,17 @@ function filterList() {
     
     const filterData = getFilterData();
     let  tableRows = _runewordsDiv.querySelectorAll('tr[user-data-id]');
+    const strategy = filterData.strategy;
 
     for (var i=0; i<tableRows.length; ++i) {
 
         let rowDiv = tableRows[i];
         let isVisible = getVisibility(filterData, rowDiv);
         rowDiv.style.display = isVisible ? '' : 'none';
+
+        if (isVisible) {
+            highlightMatchingRunes(rowDiv, filterData.runes);
+        }
     }
 }
 
@@ -76,3 +81,25 @@ function satisfiesFilter(runewordRunes, filterData) {
 
     throw new Error('Developer error: Unknown strategy.');
 }
+
+function highlightMatchingRunes(rowDiv, runes) {
+    let divs = rowDiv.querySelectorAll('.rune');
+    for (var i=0; i<divs.length; ++i) {
+        let runeDiv = divs[i];
+        let rune = runeDiv.innerText;
+        if (runes.indexOf(rune) >= 0) {
+            runeDiv.classList.add('rune-matches');
+        } else {
+            runeDiv.classList.remove('rune-matches');
+        }
+    }
+}
+
+function removeRuneHighlight(rowDiv) {
+    let divs = rowDiv.querySelectorAll('.rune');
+    for (var i=0; i<divs.length; ++i) {
+        let runeDiv = divs[i];
+        runeDiv.classList.remove('rune-matches');
+    }
+}
+
