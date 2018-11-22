@@ -20,6 +20,13 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ["style-loader", "css-loader"]
+            },
+            {
+                test: /\.html$/,
+                include: [
+                    path.resolve(__dirname, "../src"),
+                ],
+                use: 'raw-loader',
             }
         ]
     },
