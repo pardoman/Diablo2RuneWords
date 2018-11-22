@@ -12,3 +12,9 @@
 .next-strategy {
     cursor: pointer;
 }
+
+.strategy-hint {
+    font-style: italic;
+    margin-top: 10px;
+    margin-left: 14px;
+}

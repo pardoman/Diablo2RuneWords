@@ -3,7 +3,14 @@ const Mustache = require('mustache');
 import RUNES from '../../db/Runes.json'
 import TEMPLATE from './rune.template.html'
 import './runes.css';
-import { getFilterData } from '../data/filterData'
+import { getFilterData, registerFilterChange } from '../data/filterData'
+
+let MY_RUNES_LIST = RUNES.map( rune => {
+    return { 
+        name: rune,
+        inFilter: false
+    }
+});
 
 /**
  * Initializes the Runes UI component
@@ -15,13 +22,23 @@ export function initRunes(div) {
     _runesDiv.addEventListener('click', onRuneClick);
     renderRunes();
     div.appendChild(_runesDiv);
+
+    registerFilterChange( renderRunes );
 }
 
 /**
  * Renders the UI
  */
 function renderRunes() {
-    _runesDiv.innerHTML = Mustache.render(TEMPLATE, { runes: RUNES });
+    
+    let filterData = getFilterData();
+    const runesInFilter = filterData.runes;
+
+    MY_RUNES_LIST.forEach( entry => {
+        entry.inFilter = runesInFilter.indexOf(entry.name) >= 0;
+    });
+
+    _runesDiv.innerHTML = Mustache.render(TEMPLATE, { runes: MY_RUNES_LIST });
 }
 
 /**

@@ -1,6 +1,6 @@
 <h2>Filter</h2>
 {{#runes}}
-    <div class="rune">{{.}}</div>
+    <div class="rune rune-matches">{{.}}</div>
 {{/runes}}
 
 {{^runes}}
@@ -12,6 +12,6 @@
     Strategy
     <button class="next-strategy">&#8594;</button>
     <strong>{{strategy}}</strong>
-    <div>{{strategy_hint}}</div>
+    <div class="strategy-hint">{{strategy_hint}}</div>
 </div>
 {{/hasRunes}}

@@ -2,14 +2,16 @@ const Mustache = require('mustache');
 
 // Generate this file by running `npm run create-json`
 import RUNEWORDS from '../../db/RunewordList.json'
-import TEMPLATE from './runewordEntry.template.html'
+import TEMPLATE from './runewordList.template.html'
 import { getFilterData, registerFilterChange, FilterStrategies } from '../data/filterData'
 
 let _runewordsDiv;
+let _noRunewordsDiv;
 export function createList(div) {
     
     _runewordsDiv = document.createElement('div');
     _runewordsDiv.innerHTML = Mustache.render(TEMPLATE, { runewords: RUNEWORDS });
+    _noRunewordsDiv = _runewordsDiv.querySelector('.no-matches')
     div.appendChild(_runewordsDiv);
 
     registerFilterChange(filterList);
@@ -21,8 +23,8 @@ export function createList(div) {
 function filterList() {
     
     const filterData = getFilterData();
-    let  tableRows = _runewordsDiv.querySelectorAll('tr[user-data-id]');
-    const strategy = filterData.strategy;
+    let tableRows = _runewordsDiv.querySelectorAll('tr[user-data-id]');
+    let anyVisible = false;
 
     for (var i=0; i<tableRows.length; ++i) {
 
@@ -31,9 +33,14 @@ function filterList() {
         rowDiv.style.display = isVisible ? '' : 'none';
 
         if (isVisible) {
+            anyVisible = true;
             highlightMatchingRunes(rowDiv, filterData.runes);
         }
     }
+
+    // Message for when there are no runewords that match
+    // the filter criteria
+    _noRunewordsDiv.style.display = anyVisible ? 'none' : '';
 }
 
 function getVisibility(filterData, rowDiv) {
