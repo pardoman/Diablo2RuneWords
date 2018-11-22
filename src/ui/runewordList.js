@@ -6,8 +6,7 @@ import RUNEWORDS from '../../db/RunewordList.json'
 import TEMPLATE from './runewordEntry.template.html'
 
 export function createList(div) {
-    console.log(RUNEWORDS);
-
+    
     let views = [];
     for (var i=0; i<RUNEWORDS.length; ++i) {
 
