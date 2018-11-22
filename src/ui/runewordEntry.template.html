@@ -1,3 +1,25 @@
-<li>
-    {{name}}
-</li>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Effects</th>
+    </tr>
+{{#runewords}}
+    <tr>
+        <td>
+            <strong>{{name}}</strong>
+            <div>
+                {{#runes}}
+                    <span class="rune">{{.}}</span> 
+                {{/runes}}
+            </div>
+        </td>
+        <td>
+            <ul>
+            {{#effects}}
+                <li>{{.}}</li>
+            {{/effects}}
+            </ul>
+        </td>
+    </tr>
+{{/runewords}}
+</table>

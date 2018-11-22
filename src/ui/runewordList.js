@@ -7,16 +7,7 @@ import TEMPLATE from './runewordEntry.template.html'
 
 export function createList(div) {
     
-    let views = [];
-    for (var i=0; i<RUNEWORDS.length; ++i) {
-
-        let runeword = RUNEWORDS[i];
-        let renderedView = Mustache.render(TEMPLATE, runeword);
-        views.push(renderedView);
-    }
-
-    var listDiv = document.createElement('ul');
-    listDiv.innerHTML = views.join('\n');
-
-    div.appendChild(listDiv);
+    var runewordsDiv = document.createElement('div');
+    runewordsDiv.innerHTML = Mustache.render(TEMPLATE, { runewords: RUNEWORDS });
+    div.appendChild(runewordsDiv);
 }

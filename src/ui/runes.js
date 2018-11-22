@@ -9,6 +9,4 @@ export function renderRuneList(div) {
     var runesDiv = document.createElement('div');
     runesDiv.innerHTML = Mustache.render(TEMPLATE, { runes: RUNES });
     div.appendChild(runesDiv);
-
-    
 }

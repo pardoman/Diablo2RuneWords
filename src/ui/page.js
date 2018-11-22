@@ -1,6 +1,6 @@
+import './page.css'
 import { renderRuneList } from './runes'
 import { createList } from './runewordList'
-
 
 export function createPage(div) {
 
