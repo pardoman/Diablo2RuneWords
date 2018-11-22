@@ -1,7 +1,14 @@
+
+export const FilterStrategies = {
+    ANY: 'any',
+    INVENTORY: 'inventory',
+}
+
 class FilterData {
 
     constructor(){
         this.runes = [];
+        this.strategy = FilterStrategies.ANY;
     }
 
     addRune(name) {
@@ -35,7 +42,6 @@ class FilterData {
             runes: this.runes.concat() // shallow copy
         }
     }
-
 }
 
 let filterData = new FilterData();

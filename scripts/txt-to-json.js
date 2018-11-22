@@ -45,7 +45,7 @@ function onNextLine(line) {
 
     switch (lineCount) {
         case 0: // Name
-            currRuneword = { name: line };
+            currRuneword = { id: runewords.length, name: line };
             break;
 
         case 1: // Socket count & item type
