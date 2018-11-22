@@ -1,7 +1,7 @@
 
 const Mustache = require('mustache');
 import RUNES from '../../db/Runes.json'
-import TEMPLATE from './rune.template.html'
+import TEMPLATE from './runes.template.html'
 import './runes.css';
 import { getFilterData, registerFilterChange } from '../data/filterData'
 
