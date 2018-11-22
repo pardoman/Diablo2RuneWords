@@ -1,2 +1,9 @@
 # File generated with `npm run create-json`
 db/RunewordList.json
+
+# Build folder
+_build/
+
+# Nope
+package-lock.json
+node_modules
