@@ -1,3 +1,17 @@
 .no-matches {
-    display: none;
+    /* nothing yet */
+}
+
+.item-type {
+    font-size: 14px;
+    border: solid 1px #3d72ec;
+    padding: 1px 5px;
+    border-radius: 7px;
+}
+
+.suggestion-change-strategy {
+    color: white;
+    background-color: #71277d;
+    padding: 1px 3px;
+    border-radius: 3px;
 }

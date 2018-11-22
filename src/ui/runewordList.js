@@ -4,6 +4,7 @@ const Mustache = require('mustache');
 import RUNEWORDS from '../../db/RunewordList.json'
 import TEMPLATE from './runewordList.template.html'
 import { getFilterData, registerFilterChange, FilterStrategies } from '../data/filterData'
+import './runewordList.css'
 
 let _runewordsDiv;
 let _noRunewordsDiv;
@@ -12,6 +13,8 @@ export function createList(div) {
     _runewordsDiv = document.createElement('div');
     _runewordsDiv.innerHTML = Mustache.render(TEMPLATE, { runewords: RUNEWORDS });
     _noRunewordsDiv = _runewordsDiv.querySelector('.no-matches')
+    _noRunewordsDiv.style.display = 'none';
+    _noRunewordsDiv.querySelector('a').addEventListener('click', toggleStrategy);
     div.appendChild(_runewordsDiv);
 
     registerFilterChange(filterList);
@@ -110,3 +113,8 @@ function removeRuneHighlight(rowDiv) {
     }
 }
 
+function toggleStrategy(event) {
+    event.preventDefault();
+    let filterData = getFilterData();
+    filterData.nextStrategy();
+}
