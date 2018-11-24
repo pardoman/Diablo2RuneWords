@@ -40,6 +40,28 @@
     border-color: #673b7d !important;
 }
 
+.socket-count {
+    font-size: 20px;
+    display: inline-block;
+    width: 20px;
+    text-align: -webkit-center;
+    border: 1px solid #d0c7c6;
+    border-radius: 12px;
+    margin: 3px 2px;
+    cursor: pointer;
+}
+
+.socket-active {
+    background-color: #90caa0;
+    color: #0c0b0b;
+    border-color: #673b7d !important;
+}
+
+.socket-count:hover {
+    background-color: #d87272;
+    color: #0c0b0b;
+}
+
 .filter-count {
-    font-size: 18px;
+    font-size: 26px;
 }

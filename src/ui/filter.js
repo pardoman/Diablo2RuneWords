@@ -28,17 +28,30 @@ function onClick() {
         let runeName = event.target.textContent;
         let filterData = getFilterData();
         filterData.removeRune(runeName);
+        return;
     }
 
-    // Next filtering strategy
+    // Next filtering strategy (only one)
     if (event.target.classList.contains('next-strategy')) {
         let filterData = getFilterData();
         filterData.nextStrategy();
+        return;
     }
 
+    // Toggle which equipment types to display (multiple selection)
     if (event.target.classList.contains('item-toggle')) {
         let itemType = event.target.textContent;
         let filterData = getFilterData();
         filterData.toggleEquipmentType(itemType);
+        return;
     }
+
+    // Select socket count (only one)
+    if (event.target.classList.contains('socket-count')) {
+        let count = Number(event.target.textContent);
+        let filterData = getFilterData();
+        filterData.setSocketCount(count);
+        return;
+    }
+    
 }

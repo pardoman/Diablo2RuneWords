@@ -20,6 +20,7 @@ class FilterData {
         this.runes = [];
         this.equipmentTypes = [];
         this.strategy = FilterStrategies.ANY;
+        this.sockets = 0;
     }
 
     addRune(name) {
@@ -58,6 +59,13 @@ class FilterData {
         onFilterChange(this);
     }
 
+    setSocketCount(num) {
+        if (this.sockets !== num) {
+            this.sockets = num;
+            onFilterChange(this);
+        }
+    }
+
     nextStrategy() {
         const currStrategy = this.strategy;
         switch (currStrategy) {
@@ -85,6 +93,19 @@ class FilterData {
         });
     }
 
+    getSocketsState() {
+        var ret = [];
+        for (var i=0; i<7; ++i) {
+            if (i === 1)
+                continue; // There are no runewords with a single rune, lol.
+            ret.push({
+                socket: i,
+                is_active: (this.sockets === i)
+            });
+        }
+        return ret;
+    }
+
     getPlainObject() {
         return {
             runes: this.runes.concat(), // shallow copy
@@ -92,6 +113,7 @@ class FilterData {
             strategy: this.strategy,
             strategy_hint: StrategyHints[this.strategy],
             equipment_toggle: this.getEquipmentState(),
+            sockets: this.getSocketsState(),
             count: _filteredRunewordIds.length,
         }
     }
@@ -151,6 +173,10 @@ function satisfiesFilter(runeword, filterData) {
     }
 
     if (!satisfiesEquipmentType(runeword, filterData)) {
+        return false;
+    }
+
+    if (!satisfiesSocketCount(runeword, filterData)) {
         return false;
     }
 
@@ -216,4 +242,14 @@ function satisfiesEquipmentType(runeword, filterData) {
     }
 
     return false;
+}
+
+
+function satisfiesSocketCount(runeword, filterData) {
+
+    if (filterData.sockets === 0) {
+        return true;
+    }
+
+    return runeword.runes.length === filterData.sockets;
 }
