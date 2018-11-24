@@ -11,13 +11,21 @@ let _noRunewordsDiv;
 export function initRunewords(div) {
     
     _runewordsDiv = document.createElement('div');
-    _runewordsDiv.innerHTML = Mustache.render(TEMPLATE, { runewords: RUNEWORDS });
+    _runewordsDiv.innerHTML = Mustache.render(TEMPLATE, { runewords: getSortedRunewords() });
     _noRunewordsDiv = _runewordsDiv.querySelector('.no-matches')
     _noRunewordsDiv.style.display = 'none';
     _noRunewordsDiv.querySelector('a').addEventListener('click', toggleStrategy);
     div.appendChild(_runewordsDiv);
 
     registerFilterChange(filterList);
+}
+
+function getSortedRunewords() {
+    let sortedList = RUNEWORDS.concat(); // shallow copy
+    sortedList.sort(function(aa, bb) {
+        return aa.name.localeCompare(bb.name);
+    })
+    return sortedList;
 }
 
 /**
