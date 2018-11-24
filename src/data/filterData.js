@@ -80,14 +80,14 @@ export function getFilterData() {
 /**
  * 
  */
-let _listeners = [];
+let _callbacks = [];
 export function registerFilterChange(fn) {
-    _listeners.push(fn);
+    _callbacks.push(fn);
 }
 
 function onFilterChange() {
-    _listeners.forEach( (listener)=>{
-        listener();
+    _callbacks.forEach( (callback)=>{
+        callback();
     })
 }
 
