@@ -1,3 +1,5 @@
+import RUNEWORDS from '../../db/RunewordList.json'
+
 
 export const FilterStrategies = {
     ANY: 'any',
@@ -69,12 +71,20 @@ class FilterData {
 }
 
 let filterData = new FilterData();
+updateFilteredRunewords(filterData);
+
 
 /**
  * Returns a plain object for HTML template rendering.
  */
 export function getFilterData() {
     return filterData;
+}
+
+
+let _filteredRunewordIds = [];
+export function getFilteredRunewordIds() {
+    return _filteredRunewordIds;
 }
 
 /**
@@ -85,9 +95,64 @@ export function registerFilterChange(fn) {
     _callbacks.push(fn);
 }
 
-function onFilterChange() {
+function onFilterChange(filterData) {
+
+    // Update list of runword ids that fullfil the filter criteria
+    updateFilteredRunewords(filterData);
+
     _callbacks.forEach( (callback)=>{
         callback();
     })
 }
 
+
+function updateFilteredRunewords(filterData) {
+
+    _filteredRunewordIds = [];
+
+    for (let i=0; i<RUNEWORDS.length; ++i) {
+
+        let runeword = RUNEWORDS[i];
+        if (satisfiesFilter(runeword.runes, filterData)) {
+            _filteredRunewordIds.push(runeword.id);
+        }
+    }
+}
+
+function satisfiesFilter(runewordRunes, filterData) {
+
+    const runes = filterData.runes;
+    const strategy = filterData.strategy;
+
+    if (filterData.runes.length === 0) {
+        return true;
+    }
+    
+    if (strategy === FilterStrategies.ANY) {
+        // returns TRUE if at least one of the filterData.runes
+        // is present in the runeword.
+        // This is the user case for  "I have these few runes,
+        // which runeswords can I eventually make with them?"
+        for (let i=0; i<runes.length; ++i) {
+            if (runewordRunes.indexOf(runes[i]) !== -1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    if (strategy === FilterStrategies.INVENTORY) {
+        // returns TRUE when all the runeword-runes are present 
+        // in filterData.runes
+        // This is the user case for "these are all the runes I
+        // have in my possesion (inventory), what can I make with them?"
+        for (let i=0; i<runewordRunes.length; ++i) {
+            if (runes.indexOf( runewordRunes[i] ) === -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    throw new Error('Developer error: Unknown strategy.');
+}

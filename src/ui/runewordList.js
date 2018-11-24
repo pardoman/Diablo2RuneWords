@@ -3,7 +3,7 @@ const Mustache = require('mustache');
 // Generate this file by running `npm run create-json`
 import RUNEWORDS from '../../db/RunewordList.json'
 import TEMPLATE from './runewordList.template.html'
-import { getFilterData, registerFilterChange, FilterStrategies } from '../data/filterData'
+import { getFilterData, getFilteredRunewordIds, registerFilterChange } from '../data/filterData'
 import './runewordList.css'
 
 let _runewordsDiv;
@@ -26,13 +26,16 @@ export function initRunewords(div) {
 function filterList() {
     
     const filterData = getFilterData();
+    const visibleIds = getFilteredRunewordIds();
     let tableRows = _runewordsDiv.querySelectorAll('tr[user-data-id]');
     let anyVisible = false;
 
     for (var i=0; i<tableRows.length; ++i) {
 
         let rowDiv = tableRows[i];
-        let isVisible = getVisibility(filterData, rowDiv);
+        let id = Number(rowDiv.getAttribute('user-data-id'));
+        
+        let isVisible = (visibleIds.indexOf(id) !== -1);
         rowDiv.style.display = isVisible ? '' : 'none';
 
         if (isVisible) {
@@ -44,52 +47,6 @@ function filterList() {
     // Message for when there are no runewords that match
     // the filter criteria
     _noRunewordsDiv.style.display = anyVisible ? 'none' : '';
-}
-
-function getVisibility(filterData, rowDiv) {
-
-    // shortcircuit when there are no runes in the filter
-    if (filterData.runes.length === 0) {
-        return true;
-    }
-
-    let id = Number(rowDiv.getAttribute('user-data-id'));
-    let runeword = RUNEWORDS[id];
-    return satisfiesFilter(runeword.runes, filterData);
-}
-
-function satisfiesFilter(runewordRunes, filterData) {
-
-    const runes = filterData.runes;
-    const strategy = filterData.strategy;
-    
-    if (strategy === FilterStrategies.ANY) {
-        // returns TRUE if at least one of the filterData.runes
-        // is present in the runeword.
-        // This is the user case for  "I have these few runes,
-        // which runeswords can I eventually make with them?"
-        for (let i=0; i<runes.length; ++i) {
-            if (runewordRunes.indexOf(runes[i]) !== -1) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    if (strategy === FilterStrategies.INVENTORY) {
-        // returns TRUE when all the runeword-runes are present 
-        // in filterData.runes
-        // This is the user case for "these are all the runes I
-        // have in my possesion (inventory), what can I make with them?"
-        for (let i=0; i<runewordRunes.length; ++i) {
-            if (runes.indexOf( runewordRunes[i] ) === -1) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    throw new Error('Developer error: Unknown strategy.');
 }
 
 function highlightMatchingRunes(rowDiv, runes) {
