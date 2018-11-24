@@ -18,3 +18,24 @@
     margin-top: 10px;
     margin-left: 14px;
 }
+
+.item-container {
+    margin: 14px 0 0;
+}
+
+.item-toggle {
+    cursor: pointer;
+    display: inline-block;
+    margin: 3px 0;
+}
+
+.item-toggle:hover {
+    background-color: #d87272;
+    color: #0c0b0b;
+}
+
+.item-type-active {
+    background-color: #90caa0;
+    color: #0c0b0b;
+    border-color: #673b7d !important;
+}

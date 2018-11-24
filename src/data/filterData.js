@@ -1,4 +1,5 @@
 import RUNEWORDS from '../../db/RunewordList.json'
+import { equipmentList } from './equipment'
 
 
 export const FilterStrategies = {
@@ -14,6 +15,7 @@ class FilterData {
 
     constructor(){
         this.runes = [];
+        this.equipmentTypes = [];
         this.strategy = FilterStrategies.ANY;
     }
 
@@ -43,6 +45,16 @@ class FilterData {
         onFilterChange(this);
     }
 
+    toggleEquipmentType(item) {
+        var index = this.equipmentTypes.indexOf(item);
+        if (index === -1) {
+            this.equipmentTypes.push(item);
+        } else {
+            this.equipmentTypes.splice(index, 1);
+        }
+        onFilterChange(this);
+    }
+
     nextStrategy() {
         const currStrategy = this.strategy;
         switch (currStrategy) {
@@ -60,12 +72,23 @@ class FilterData {
         onFilterChange(this);
     }
 
+    getEquipmentState() {
+        const types = equipmentList.getTypes();
+        return types.map( (itemType)=>{
+            return {
+                name: itemType,
+                is_active: (this.equipmentTypes.indexOf(itemType) !== -1),
+            }
+        });
+    }
+
     getPlainObject() {
         return {
             runes: this.runes.concat(), // shallow copy
-            hasRunes: this.runes.length > 0,
+            has_runes: this.runes.length > 0,
             strategy: this.strategy,
             strategy_hint: StrategyHints[this.strategy],
+            equipment_toggle: this.getEquipmentState(),
         }
     }
 }
@@ -113,20 +136,34 @@ function updateFilteredRunewords(filterData) {
     for (let i=0; i<RUNEWORDS.length; ++i) {
 
         let runeword = RUNEWORDS[i];
-        if (satisfiesFilter(runeword.runes, filterData)) {
+        if (satisfiesFilter(runeword, filterData)) {
             _filteredRunewordIds.push(runeword.id);
         }
     }
 }
 
-function satisfiesFilter(runewordRunes, filterData) {
+function satisfiesFilter(runeword, filterData) {
 
-    const runes = filterData.runes;
-    const strategy = filterData.strategy;
+    if (!satisfiesStrategy(runeword, filterData)) {
+        return false;
+    }
+
+    if (!satisfiesEquipmentType(runeword, filterData)) {
+        return false;
+    }
+
+    return true;
+}
+
+function satisfiesStrategy(runeword, filterData) {
 
     if (filterData.runes.length === 0) {
         return true;
     }
+
+    const runes = filterData.runes;
+    const strategy = filterData.strategy;
+    const runewordRunes = runeword.runes;
     
     if (strategy === FilterStrategies.ANY) {
         // returns TRUE if at least one of the filterData.runes
@@ -155,4 +192,26 @@ function satisfiesFilter(runewordRunes, filterData) {
     }
 
     throw new Error('Developer error: Unknown strategy.');
+}
+
+function satisfiesEquipmentType(runeword, filterData) {
+
+    if (filterData.equipmentTypes.length === 0) {
+        return true;
+    }
+
+    const filteredTypes = filterData.equipmentTypes;
+    const items = runeword.items;
+
+    // Runeword item needs to match at least one of the
+    // selected equipement types.
+    for (var i=0; i<items.length; ++i) {
+
+        var found = false;
+        if (filteredTypes.indexOf(items[i]) !== -1) {
+            return true;
+        }
+    }
+
+    return false;
 }

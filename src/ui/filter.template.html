@@ -7,11 +7,17 @@
 <div>Click Runes to filter RuneWords.</div>
 {{/runes}}
 
-{{#hasRunes}}
+{{#has_runes}}
 <div class="strategy">
     Strategy
     <button class="next-strategy">&#8594;</button>
     <strong>{{strategy}}</strong>
     <div class="strategy-hint">{{strategy_hint}}</div>
 </div>
-{{/hasRunes}}
+{{/has_runes}}
+
+<div class="item-container">
+{{#equipment_toggle}}
+    <div class="item-type item-toggle {{#is_active}}item-type-active{{/is_active}}">{{name}}</div>
+{{/equipment_toggle}}
+</div>

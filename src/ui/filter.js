@@ -25,7 +25,7 @@ function onClick() {
 
     // Remove Rune
     if (event.target.classList.contains('rune')) {
-        var runeName = event.target.textContent;
+        let runeName = event.target.textContent;
         let filterData = getFilterData();
         filterData.removeRune(runeName);
     }
@@ -36,5 +36,9 @@ function onClick() {
         filterData.nextStrategy();
     }
 
-    
+    if (event.target.classList.contains('item-toggle')) {
+        let itemType = event.target.textContent;
+        let filterData = getFilterData();
+        filterData.toggleEquipmentType(itemType);
+    }
 }
