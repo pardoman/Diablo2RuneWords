@@ -19,6 +19,8 @@ class EquipmentList {
                 }
             }
         }
+
+        this.types.sort();
     }
 
     getTypes() {

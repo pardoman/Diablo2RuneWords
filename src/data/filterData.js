@@ -11,6 +11,9 @@ const StrategyHints = {};
 StrategyHints[ FilterStrategies.ANY ] = 'Displays runewords that contain at least 1 rune in the filter.';
 StrategyHints[ FilterStrategies.INVENTORY ] = 'Displays runeswords where all runes match the filter.';
 
+
+let _filteredRunewordIds = [];
+
 class FilterData {
 
     constructor(){
@@ -89,6 +92,7 @@ class FilterData {
             strategy: this.strategy,
             strategy_hint: StrategyHints[this.strategy],
             equipment_toggle: this.getEquipmentState(),
+            count: _filteredRunewordIds.length,
         }
     }
 }
@@ -104,8 +108,6 @@ export function getFilterData() {
     return filterData;
 }
 
-
-let _filteredRunewordIds = [];
 export function getFilteredRunewordIds() {
     return _filteredRunewordIds;
 }

@@ -39,3 +39,7 @@
     color: #0c0b0b;
     border-color: #673b7d !important;
 }
+
+.filter-count {
+    font-size: 18px;
+}
