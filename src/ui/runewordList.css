@@ -2,6 +2,12 @@
     /* nothing yet */
 }
 
+th {
+    font-size: 26px;
+    text-align: left;
+    padding-left: 40px;
+}
+
 .item-type {
     font-size: 14px;
     border: solid 1px #3d72ec;
