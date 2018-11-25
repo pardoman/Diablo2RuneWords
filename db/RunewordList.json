@@ -148,7 +148,7 @@
     "id": 6,
     "name": "Leaf",
     "items": [
-      "Staves* (Not Orbs)"
+      "Staves"
     ],
     "runes": [
       "Tir",
@@ -255,7 +255,7 @@
     "id": 11,
     "name": "Memory",
     "items": [
-      "Staves (Not Orbs)"
+      "Staves"
     ],
     "runes": [
       "Lum",
@@ -959,7 +959,7 @@
     "name": "Heart of the Oak",
     "items": [
       "Staves",
-      "Maces*"
+      "Maces"
     ],
     "runes": [
       "Ko",
