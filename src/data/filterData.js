@@ -63,6 +63,9 @@ class FilterData {
         if (this.sockets !== num) {
             this.sockets = num;
             onFilterChange(this);
+        } else if (this.socket !== 0) {
+            this.sockets = 0;
+            onFilterChange(this);
         }
     }
 
