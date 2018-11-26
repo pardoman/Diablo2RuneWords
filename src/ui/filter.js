@@ -21,7 +21,7 @@ function renderFilter() {
     _filterDiv.className = 'filter';
 }
 
-function onClick() {
+function onClick(event) {
 
     // Remove Rune
     if (event.target.classList.contains('rune')) {
